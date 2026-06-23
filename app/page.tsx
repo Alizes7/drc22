@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main id="conteudo-principal">
+      <main id="main">
         <HeroSection />
         <AboutSection />
         <AreasSection />

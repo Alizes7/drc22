@@ -2,93 +2,102 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
-import GoldenBackground from "@/components/GoldenBackground";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const depoimentos = [
-  { texto: "A DRC Advogados se tornou um parceiro estratégico fundamental para nossa empresa. A qualidade técnica e o comprometimento com resultados superaram todas as expectativas.", autor: "Marcelo Andrade", cargo: "CEO, Grupo Andrade" },
-  { texto: "Excelência jurídica combinada com atendimento personalizado. A equipe entende perfeitamente as necessidades do negócio e entrega soluções práticas e eficientes.", autor: "Patrícia Lima", cargo: "Diretora Jurídica, TechCorp Brasil" },
-  { texto: "Profissionalismo impecável e resultados consistentes. Recomendo a DRC para qualquer empresa que busque excelência em assessoria jurídica empresarial.", autor: "Roberto Santos", cargo: "Presidente, Santos Holding" },
+  { texto: "A DRC Advogados combina excelência técnica, visão estratégica e atendimento próximo. Uma parceria de confiança para decisões relevantes.", autor: "Marcelo Andrade", cargo: "CEO, Grupo Andrade" },
+  { texto: "Profissionalismo impecável e resultados consistentes. A equipe entende perfeitamente as necessidades do negócio e entrega soluções práticas.", autor: "Patrícia Lima", cargo: "Diretora Jurídica, TechCorp Brasil" },
+  { texto: "O DRC Advogados se tornou um parceiro estratégico fundamental para nossa empresa. A qualidade técnica e o comprometimento superaram todas as expectativas.", autor: "Roberto Santos", cargo: "Presidente, Santos Holding" },
 ];
 
 export default function DepoimentosSection() {
-  const [current, setCurrent] = useState(0);
-
-  const next = useCallback(() => setCurrent((prev) => (prev + 1) % depoimentos.length), []);
-  const prevFn = useCallback(() => setCurrent((prev) => (prev - 1 + depoimentos.length) % depoimentos.length), []);
-
-  useEffect(() => {
-    const timer = setInterval(next, 6000);
-    return () => clearInterval(timer);
-  }, [next]);
+  const [cur, setCur] = useState(0);
+  const next = useCallback(() => setCur((p) => (p + 1) % depoimentos.length), []);
+  const prev = useCallback(() => setCur((p) => (p - 1 + depoimentos.length) % depoimentos.length), []);
+  useEffect(() => { const t = setInterval(next, 6000); return () => clearInterval(t); }, [next]);
 
   return (
-    <section id="depoimentos" className="relative py-24 md:py-32 overflow-hidden">
-      <GoldenBackground variant="cool" showOrbs={true} showLines={true} />
+    <section id="depoimentos" className="relative py-24 md:py-32 overflow-hidden" style={{ backgroundColor: "#F8F4EC" }}>
+      {/* Wave top */}
+      <div className="absolute top-0 left-0 right-0 pointer-events-none overflow-hidden" aria-hidden="true">
+        <svg viewBox="0 0 1440 80" className="w-full" preserveAspectRatio="none">
+          <path d="M0,40 C360,0 1080,80 1440,30 L1440,0 L0,0 Z" fill="white" />
+        </svg>
+        <svg viewBox="0 0 1440 80" className="absolute top-0 w-full" preserveAspectRatio="none">
+          <path d="M0,40 C360,0 1080,80 1440,30" fill="none" stroke="rgba(184,137,59,0.14)" strokeWidth="1" />
+        </svg>
+      </div>
 
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] max-w-[600px] h-px z-10" style={{ background: "linear-gradient(90deg, transparent, rgba(201,165,115,0.2), transparent)" }} aria-hidden="true" />
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[60%] max-w-[600px] h-px z-10" style={{ background: "linear-gradient(90deg, transparent, rgba(201,165,115,0.2), transparent)" }} aria-hidden="true" />
+      {/* Wave bottom */}
+      <div className="absolute bottom-0 left-0 right-0 pointer-events-none overflow-hidden" aria-hidden="true">
+        <svg viewBox="0 0 1440 80" className="w-full" preserveAspectRatio="none">
+          <path d="M0,30 C360,80 1080,0 1440,50 L1440,80 L0,80 Z" fill="white" />
+        </svg>
+        <svg viewBox="0 0 1440 80" className="absolute bottom-0 w-full" preserveAspectRatio="none">
+          <path d="M0,30 C360,80 1080,0 1440,50" fill="none" stroke="rgba(184,137,59,0.14)" strokeWidth="1" />
+        </svg>
+      </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.6 }} className="text-center mb-16">
-          <div className="flex items-center justify-center gap-3 mb-5">
-            <span className="folio-mark text-[11px] text-brass/50">fls. 06</span>
-            <span className="h-px w-8 bg-brass/30" aria-hidden="true" />
-            <span className="text-brass text-xs tracking-[0.32em] uppercase">Depoimentos</span>
-          </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-parchment font-serif leading-[1.05]">
-            O Que Dizem <span className="text-brass-gradient font-medium">Nossos Clientes</span>
-          </h2>
-        </motion.div>
+      <div className="relative z-10 max-w-3xl mx-auto px-5 sm:px-8 text-center">
+        <motion.p
+          initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+          className="font-mono text-[10px] tracking-[0.32em] text-gold uppercase mb-5"
+        >
+          Depoimentos
+        </motion.p>
+        <motion.h2
+          initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="font-serif text-4xl sm:text-5xl font-light text-ink mb-14 leading-[1.1]"
+        >
+          O que dizem nossos <em className="text-gold-gradient not-italic">clientes.</em>
+        </motion.h2>
 
-        <div className="relative border border-hairline px-6 sm:px-16 py-12 sm:py-16">
-          <Quote className="absolute top-6 left-6 sm:top-8 sm:left-8 w-8 h-8 text-brass/30" aria-hidden="true" />
+        {/* Carousel */}
+        <div className="relative">
+          {/* Big gold quote */}
+          <div className="font-serif text-[100px] leading-none text-gold/15 select-none mb-2">&ldquo;</div>
+
           <AnimatePresence mode="wait">
             <motion.div
-              key={current}
-              initial={{ opacity: 0, y: 16 }}
+              key={cur}
+              initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -16 }}
+              exit={{ opacity: 0, y: -14 }}
               transition={{ duration: 0.4 }}
-              className="text-center"
             >
-              <p className="text-xl md:text-2xl text-parchment-2 leading-relaxed mb-8 font-serif italic font-light">
-                &ldquo;{depoimentos[current].texto}&rdquo;
+              <p className="font-serif text-xl sm:text-2xl font-light text-ink/80 leading-[1.6] mb-10 italic">
+                &ldquo;{depoimentos[cur].texto}&rdquo;
               </p>
-              <div>
-                <p className="text-brass font-medium text-lg font-serif">{depoimentos[current].autor}</p>
-                <p className="text-parchment-faint text-sm mt-0.5">{depoimentos[current].cargo}</p>
+              <div className="flex items-center justify-center gap-4 mb-10">
+                <div className="h-px w-10" style={{ background: "rgba(184,137,59,0.35)" }} />
+                <div>
+                  <p className="font-serif text-lg font-medium text-ink">{depoimentos[cur].autor}</p>
+                  <p className="font-mono text-[10px] tracking-wider text-muted mt-0.5">{depoimentos[cur].cargo}</p>
+                </div>
+                <div className="h-px w-10" style={{ background: "rgba(184,137,59,0.35)" }} />
               </div>
             </motion.div>
           </AnimatePresence>
 
-          <div className="flex items-center justify-center gap-4 mt-12">
-            <button
-              onClick={prevFn}
-              className="p-2 border border-hairline text-parchment-faint hover:border-brass hover:text-brass transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brass focus-visible:outline-offset-2 rounded-sm"
-              aria-label="Depoimento anterior"
-            >
-              <ChevronLeft className="w-5 h-5" />
+          {/* Controls */}
+          <div className="flex items-center justify-center gap-5">
+            <button onClick={prev} className="w-10 h-10 flex items-center justify-center border border-gold/30 text-muted hover:border-gold hover:text-gold transition-all duration-250 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2" aria-label="Anterior">
+              <ChevronLeft className="w-4 h-4" />
             </button>
             <div className="flex gap-2">
-              {depoimentos.map((_, index) => (
+              {depoimentos.map((_, i) => (
                 <button
-                  key={index}
-                  onClick={() => setCurrent(index)}
-                  className={`h-1.5 rounded-full transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brass focus-visible:outline-offset-2 ${
-                    index === current ? "bg-brass w-6" : "bg-hairline-strong w-1.5"
-                  }`}
-                  aria-label={`Ir para depoimento ${index + 1}`}
-                  aria-current={index === current ? "true" : undefined}
+                  key={i}
+                  onClick={() => setCur(i)}
+                  className={`h-1 rounded-full transition-all duration-300 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold ${i === cur ? "bg-gold w-7" : "bg-gold/25 w-4"}`}
+                  aria-label={`Depoimento ${i + 1}`}
+                  aria-current={i === cur ? "true" : undefined}
                 />
               ))}
             </div>
-            <button
-              onClick={next}
-              className="p-2 border border-hairline text-parchment-faint hover:border-brass hover:text-brass transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brass focus-visible:outline-offset-2 rounded-sm"
-              aria-label="Próximo depoimento"
-            >
-              <ChevronRight className="w-5 h-5" />
+            <button onClick={next} className="w-10 h-10 flex items-center justify-center border border-gold/30 text-muted hover:border-gold hover:text-gold transition-all duration-250 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2" aria-label="Próximo">
+              <ChevronRight className="w-4 h-4" />
             </button>
           </div>
         </div>

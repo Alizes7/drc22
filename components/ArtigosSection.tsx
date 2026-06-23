@@ -3,7 +3,6 @@
 import { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, ArrowRight, X, Clock, User, Tag, Share2, Bookmark } from "lucide-react";
-import GoldenBackground from "@/components/GoldenBackground";
 
 interface Artigo {
   id: number;
@@ -308,42 +307,46 @@ export default function ArtigosSection() {
   }, []);
 
   return (
-    <section id="artigos" className="relative py-24 md:py-32 overflow-hidden">
-      <GoldenBackground variant="default" showOrbs={true} showLines={true} />
+    <section id="artigos" className="relative py-24 md:py-32 bg-ivory overflow-hidden">
+      {/* Wave top */}
+      <div className="absolute top-0 left-0 right-0 pointer-events-none overflow-hidden" aria-hidden="true">
+        <svg viewBox="0 0 1440 80" className="w-full" preserveAspectRatio="none">
+          <path d="M0,50 C480,0 960,80 1440,30 L1440,0 L0,0 Z" fill="white" />
+        </svg>
+        <svg viewBox="0 0 1440 80" className="absolute top-0 w-full" preserveAspectRatio="none">
+          <path d="M0,50 C480,0 960,80 1440,30" fill="none" stroke="rgba(184,137,59,0.14)" strokeWidth="1" />
+        </svg>
+      </div>
 
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] max-w-[600px] h-[1px] z-10" style={{ background: 'linear-gradient(90deg, transparent, rgba(201,169,110,0.25), transparent)' }} aria-hidden="true" />
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[60%] max-w-[600px] h-[1px] z-10" style={{ background: 'linear-gradient(90deg, transparent, rgba(201,169,110,0.25), transparent)' }} aria-hidden="true" />
+      {/* BG lines */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1440 700" preserveAspectRatio="xMidYMid slice">
+          <path d="M-100,500 C300,380 700,540 1100,420 C1300,360 1400,430 1600,400" fill="none" stroke="rgba(184,137,59,0.08)" strokeWidth="1" />
+        </svg>
+      </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
         {/* Header */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }} 
-          whileInView={{ opacity: 1, y: 0 }} 
-          viewport={{ once: true, margin: "-100px" }} 
-          transition={{ duration: 0.6 }} 
+        <motion.div
+          initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.65 }}
           className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-6"
         >
           <div>
-            <div className="flex items-center gap-3 mb-5">
-              <span className="folio-mark text-[11px] text-[#C9A573]/50">fls. 07</span>
-              <span className="h-px w-8 bg-[#C9A573]/30" aria-hidden="true" />
-              <span className="text-[#C9A573] text-xs tracking-[0.32em] uppercase">Publicações</span>
-            </div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-[#F3EFE6] font-serif leading-[1.05]">
-              Artigos e <span className="text-brass-gradient font-medium">Insights</span>
+            <p className="font-mono text-[10px] tracking-[0.32em] text-gold uppercase mb-5">Publicações</p>
+            <h2 className="font-serif text-4xl sm:text-5xl lg:text-[52px] font-light text-ink leading-[1.08]">
+              Artigos e <em className="text-gold-gradient not-italic">Insights.</em>
             </h2>
           </div>
-
-          {/* Filtros de categoria */}
           <div className="flex flex-wrap gap-2">
             {categorias.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setCategoriaFiltro(cat)}
-                className={`px-4 py-2 text-xs tracking-wider uppercase transition-all duration-300 rounded-sm border ${
+                className={`px-4 py-2 text-[10px] tracking-[0.15em] uppercase transition-all duration-250 border cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold ${
                   categoriaFiltro === cat
-                    ? "bg-[#C9A573]/10 border-[#C9A573]/40 text-[#C9A573]"
-                    : "border-[#232024] text-[#5C5750] hover:border-[#C9A573]/30 hover:text-[#9B9388]"
+                    ? "border-gold/50 text-gold bg-gold/8"
+                    : "border-gold/20 text-muted hover:border-gold/40 hover:text-gold"
                 }`}
               >
                 {cat}
@@ -352,55 +355,50 @@ export default function ArtigosSection() {
           </div>
         </motion.div>
 
-        {/* Grid de artigos */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Cards grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           <AnimatePresence mode="popLayout">
             {artigosFiltrados.map((artigo, index) => (
-              <motion.article 
+              <motion.article
                 key={artigo.id}
                 layout
-                initial={{ opacity: 0, y: 30 }} 
-                animate={{ opacity: 1, y: 0 }} 
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.4, delay: index * 0.08 }} 
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.97 }}
+                transition={{ duration: 0.4, delay: index * 0.07 }}
                 className="group cursor-pointer"
                 onClick={() => abrirArtigo(artigo)}
+                tabIndex={0}
+                role="button"
+                aria-label={`Ler artigo: ${artigo.titulo}`}
+                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") abrirArtigo(artigo); }}
               >
-                <div className="relative h-full p-6 bg-[#111113]/80 backdrop-blur-sm border border-[#232024] hover:border-[#C9A573]/40 transition-all duration-500 overflow-hidden">
-                  <div className="absolute top-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#C9A573] to-[#E5C788] group-hover:w-full transition-all duration-500" />
+                <div className="relative h-full p-7 bg-white border hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-350 overflow-hidden" style={{ borderColor: "rgba(184,137,59,0.18)" }}>
+                  {/* Top gold bar on hover */}
+                  <div className="absolute top-0 left-0 right-0 h-px bg-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-400 origin-left" />
 
-                  {/* Badge destaque */}
                   {artigo.destaque && (
-                    <div className="absolute top-4 right-4 px-3 py-1 bg-[#C9A573]/10 border border-[#C9A573]/30 text-[#C9A573] text-[10px] tracking-wider uppercase">
+                    <div className="absolute top-4 right-4 px-2.5 py-1 border border-gold/35 text-gold font-mono text-[9px] tracking-wider uppercase">
                       Destaque
                     </div>
                   )}
 
-                  <div className="relative z-10">
-                    <div className="flex items-center gap-2 mb-4">
-                      <span className="text-[#C9A573] text-xs tracking-wider uppercase">{artigo.categoria}</span>
+                  <p className="font-mono text-[9px] tracking-[0.22em] text-gold uppercase mb-4">{artigo.categoria}</p>
+                  <h3 className="font-serif text-xl font-medium text-ink mb-3 group-hover:text-gold transition-colors duration-300 leading-snug">
+                    {artigo.titulo}
+                  </h3>
+                  <p className="text-sm text-muted leading-relaxed mb-6 line-clamp-2">{artigo.resumo}</p>
+
+                  <div className="flex items-center justify-between mt-auto">
+                    <div className="flex items-center gap-2 text-faint text-[11px]">
+                      <Calendar className="w-3 h-3" aria-hidden="true" />
+                      {artigo.data}
+                      <span className="mx-0.5">·</span>
+                      <Clock className="w-3 h-3" aria-hidden="true" />
+                      {artigo.tempoLeitura}
                     </div>
-
-                    <h3 className="text-xl font-medium text-[#F3EFE6] mb-3 font-serif group-hover:text-[#C9A573] transition-colors duration-500 leading-snug">
-                      {artigo.titulo}
-                    </h3>
-
-                    <p className="text-sm text-[#5C5750] mb-4 leading-relaxed line-clamp-3">
-                      {artigo.resumo}
-                    </p>
-
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2 text-[#5C5750] text-xs">
-                        <Calendar className="w-3 h-3" aria-hidden="true" />
-                        {artigo.data}
-                        <span className="mx-1">·</span>
-                        <Clock className="w-3 h-3" aria-hidden="true" />
-                        {artigo.tempoLeitura}
-                      </div>
-
-                      <div className="flex items-center gap-2 text-[#C9A573] text-xs tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        LER <ArrowRight className="w-3 h-3" />
-                      </div>
+                    <div className="flex items-center gap-1.5 text-gold font-mono text-[9px] tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      LER <ArrowRight className="w-3 h-3" />
                     </div>
                   </div>
                 </div>
@@ -409,147 +407,103 @@ export default function ArtigosSection() {
           </AnimatePresence>
         </div>
 
-        {/* Contador */}
         <div className="mt-8 text-center">
-          <p className="text-xs text-[#5C5750] tracking-wider">
+          <p className="font-mono text-[10px] tracking-wider text-faint">
             Exibindo {artigosFiltrados.length} de {artigos.length} artigos
           </p>
         </div>
       </div>
 
-      {/* Modal de leitura inline */}
+      {/* Modal */}
       <AnimatePresence>
         {artigoSelecionado && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-50 bg-[#08080A]/95 backdrop-blur-xl overflow-y-auto"
+            className="fixed inset-0 z-50 overflow-y-auto"
+            style={{ backgroundColor: "rgba(26,23,20,0.7)", backdropFilter: "blur(6px)" }}
             onClick={fecharArtigo}
           >
-            {/* Botão fechar fixo */}
             <button
               onClick={fecharArtigo}
-              className="fixed top-4 right-4 z-[60] p-3 bg-[#111113]/90 border border-[#232024] text-[#5C5750] hover:text-[#C9A573] hover:border-[#C9A573]/40 transition-all duration-300 rounded-sm"
+              className="fixed top-5 right-5 z-[60] p-2.5 bg-white border border-gold/25 text-muted hover:text-gold hover:border-gold transition-all duration-250 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold"
               aria-label="Fechar artigo"
             >
               <X className="w-5 h-5" />
             </button>
 
             <motion.article
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 40 }}
-              transition={{ duration: 0.4, delay: 0.1 }}
-              className="relative min-h-screen"
+              initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+              transition={{ duration: 0.4, ease: [0.22,1,0.36,1] }}
+              className="relative min-h-screen bg-white max-w-4xl mx-auto my-8 shadow-gold-lg"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Header do artigo */}
-              <div className="relative pt-20 pb-12 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-4xl mx-auto">
-                  {/* Meta info */}
-                  <div className="flex flex-wrap items-center gap-3 mb-6">
-                    <span className="px-3 py-1 bg-[#C9A573]/10 border border-[#C9A573]/30 text-[#C9A573] text-xs tracking-wider uppercase">
-                      {artigoSelecionado.categoria}
-                    </span>
-                    <div className="flex items-center gap-2 text-[#5C5750] text-xs">
-                      <Calendar className="w-3 h-3" />
-                      {artigoSelecionado.data}
-                    </div>
-                    <div className="flex items-center gap-2 text-[#5C5750] text-xs">
-                      <Clock className="w-3 h-3" />
-                      {artigoSelecionado.tempoLeitura} de leitura
-                    </div>
+              {/* Gold top bar */}
+              <div className="h-[3px] w-full bg-gold" />
+
+              <div className="pt-14 pb-10 px-7 sm:px-12">
+                <div className="flex flex-wrap items-center gap-3 mb-6">
+                  <span className="px-3 py-1 border border-gold/35 font-mono text-[9px] tracking-wider text-gold uppercase">{artigoSelecionado.categoria}</span>
+                  <span className="flex items-center gap-1.5 text-faint text-xs"><Calendar className="w-3 h-3" />{artigoSelecionado.data}</span>
+                  <span className="flex items-center gap-1.5 text-faint text-xs"><Clock className="w-3 h-3" />{artigoSelecionado.tempoLeitura} de leitura</span>
+                </div>
+
+                <h1 className="font-serif text-3xl sm:text-4xl md:text-[44px] font-light text-ink leading-[1.1] mb-6">
+                  {artigoSelecionado.titulo}
+                </h1>
+
+                <div className="flex items-center gap-3 pb-8 mb-8 border-b" style={{ borderColor: "rgba(184,137,59,0.15)" }}>
+                  <div className="w-10 h-10 flex items-center justify-center border border-gold/25 bg-gold/5">
+                    <User className="w-4 h-4 text-gold" strokeWidth={1.5} />
                   </div>
-
-                  {/* Título */}
-                  <h1 className="text-3xl sm:text-4xl md:text-5xl font-light text-[#F3EFE6] font-serif mb-6 leading-tight">
-                    {artigoSelecionado.titulo}
-                  </h1>
-
-                  {/* Autor */}
-                  <div className="flex items-center gap-3 mb-8 pb-8 border-b border-[#232024]">
-                    <div className="w-10 h-10 flex items-center justify-center border border-[#C9A573]/30 bg-[#C9A573]/10">
-                      <User className="w-4 h-4 text-[#C9A573]" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-[#DCD5C6]">{artigoSelecionado.autor}</p>
-                      <p className="text-xs text-[#5C5750]">Advogado(a) — DRC Advogados</p>
-                    </div>
+                  <div>
+                    <p className="text-sm text-ink font-medium">{artigoSelecionado.autor}</p>
+                    <p className="font-mono text-[10px] text-muted">DRC Advogados</p>
                   </div>
                 </div>
-              </div>
 
-              {/* Conteúdo */}
-              <div className="px-4 sm:px-6 lg:px-8 pb-20">
-                <div className="max-w-4xl mx-auto">
-                  <div 
-                    className="prose prose-invert prose-gold max-w-none"
-                    style={{
-                      color: '#9B9388',
-                      lineHeight: '1.8',
-                    }}
+                {/* Highlight resumo */}
+                <div className="p-5 mb-8 bg-ivory border-l-2 border-gold">
+                  <p className="font-serif text-lg text-ink/80 italic leading-relaxed">{artigoSelecionado.resumo}</p>
+                </div>
+
+                <div className="text-muted text-[17px] leading-[1.85] whitespace-pre-line mb-10">
+                  {artigoSelecionado.conteudo}
+                </div>
+
+                {/* Tags */}
+                <div className="pt-8 border-t mb-8" style={{ borderColor: "rgba(184,137,59,0.15)" }}>
+                  <div className="flex items-center gap-2 mb-4">
+                    <Tag className="w-3.5 h-3.5 text-gold" strokeWidth={1.5} />
+                    <span className="font-mono text-[9px] tracking-wider text-muted uppercase">Tags</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {artigoSelecionado.tags.map((tag) => (
+                      <span key={tag} className="px-3 py-1.5 bg-ivory border border-gold/20 font-mono text-[10px] text-muted hover:border-gold/50 hover:text-gold transition-all duration-250 cursor-pointer">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Actions */}
+                <div className="flex flex-wrap gap-3 mb-10">
+                  <button className="flex items-center gap-2 px-4 py-2.5 border border-gold/25 text-muted font-mono text-[10px] tracking-wider uppercase hover:border-gold hover:text-gold transition-all duration-250 cursor-pointer">
+                    <Share2 className="w-3.5 h-3.5" /> Compartilhar
+                  </button>
+                  <button className="flex items-center gap-2 px-4 py-2.5 border border-gold/25 text-muted font-mono text-[10px] tracking-wider uppercase hover:border-gold hover:text-gold transition-all duration-250 cursor-pointer">
+                    <Bookmark className="w-3.5 h-3.5" /> Salvar
+                  </button>
+                </div>
+
+                {/* CTA inline */}
+                <div className="p-7 sm:p-8 bg-ivory border border-gold/20">
+                  <h3 className="font-serif text-2xl font-light text-ink mb-2">Precisa de orientação sobre este tema?</h3>
+                  <p className="text-muted text-sm mb-6">Nossa equipe está pronta para ajudar com soluções jurídicas personalizadas.</p>
+                  <a
+                    href="https://wa.me/5511912252450" target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-7 py-3.5 bg-gold text-white font-mono text-[10px] tracking-wider uppercase hover:bg-gold-deep transition-colors duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2"
                   >
-                    {/* Resumo em destaque */}
-                    <div className="p-6 bg-[#111113]/60 border-l-2 border-[#C9A573] mb-8">
-                      <p className="text-lg text-[#DCD5C6] italic m-0">{artigoSelecionado.resumo}</p>
-                    </div>
-
-                    {/* Conteúdo formatado */}
-                    <div className="text-[#9B9388] text-base sm:text-lg leading-relaxed whitespace-pre-line">
-                      {artigoSelecionado.conteudo}
-                    </div>
-                  </div>
-
-                  {/* Tags */}
-                  <div className="mt-12 pt-8 border-t border-[#232024]">
-                    <div className="flex items-center gap-2 mb-4">
-                      <Tag className="w-4 h-4 text-[#C9A573]" />
-                      <span className="text-xs text-[#5C5750] tracking-wider uppercase">Tags</span>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {artigoSelecionado.tags.map((tag) => (
-                        <span 
-                          key={tag} 
-                          className="px-3 py-1.5 bg-[#111113] border border-[#232024] text-[#5C5750] text-xs hover:border-[#C9A573]/30 hover:text-[#C9A573] transition-all duration-300 cursor-pointer"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Ações */}
-                  <div className="mt-8 flex flex-wrap items-center gap-4">
-                    <button className="flex items-center gap-2 px-4 py-2 border border-[#232024] text-[#5C5750] text-xs tracking-wider hover:border-[#C9A573]/30 hover:text-[#C9A573] transition-all duration-300">
-                      <Share2 className="w-4 h-4" />
-                      COMPARTILHAR
-                    </button>
-                    <button className="flex items-center gap-2 px-4 py-2 border border-[#232024] text-[#5C5750] text-xs tracking-wider hover:border-[#C9A573]/30 hover:text-[#C9A573] transition-all duration-300">
-                      <Bookmark className="w-4 h-4" />
-                      SALVAR
-                    </button>
-                  </div>
-
-                  {/* CTA */}
-                  <div className="mt-12 p-6 sm:p-8 bg-gradient-to-br from-[#C9A573]/10 to-transparent border border-[#C9A573]/20">
-                    <h3 className="text-xl font-medium text-[#F3EFE6] font-serif mb-3">
-                      Precisa de orientação sobre este tema?
-                    </h3>
-                    <p className="text-sm text-[#9B9388] mb-6">
-                      Nossa equipe está pronta para ajudar sua empresa com soluções jurídicas personalizadas.
-                    </p>
-                    <a 
-                      href="https://wa.me/5511912252450" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-[#C9A573] text-[#08080A] text-sm font-medium tracking-wider hover:bg-[#E5C788] transition-colors"
-                    >
-                      FALE COM UM ESPECIALISTA
-                      <ArrowRight className="w-4 h-4" />
-                    </a>
-                  </div>
+                    Falar com Especialista <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
                 </div>
               </div>
             </motion.article>

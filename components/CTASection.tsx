@@ -2,51 +2,62 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import GoldenBackground from "@/components/GoldenBackground";
 
 export default function CTASection() {
   return (
-    <section className="relative py-24 md:py-32 overflow-hidden" aria-label="Chamada para ação">
-      <GoldenBackground variant="intense" showOrbs={true} showLines={true} showGrid={true} />
+    <section className="relative py-24 md:py-32 overflow-hidden bg-ink" aria-label="Chamada para ação">
+      {/* Gold wave top */}
+      <div className="absolute top-0 left-0 right-0 pointer-events-none overflow-hidden" aria-hidden="true">
+        <svg viewBox="0 0 1440 80" className="w-full" preserveAspectRatio="none">
+          <path d="M0,30 C240,70 600,0 960,60 C1200,90 1350,20 1440,45 L1440,0 L0,0 Z" fill="white" />
+        </svg>
+        <svg viewBox="0 0 1440 80" className="absolute top-0 w-full" preserveAspectRatio="none">
+          <path d="M0,20 C360,80 1080,0 1440,50" fill="none" stroke="rgba(184,137,59,0.22)" strokeWidth="1" />
+        </svg>
+      </div>
 
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] max-w-[600px] h-px z-10" style={{ background: "linear-gradient(90deg, transparent, rgba(201,165,115,0.2), transparent)" }} aria-hidden="true" />
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[60%] max-w-[600px] h-px z-10" style={{ background: "linear-gradient(90deg, transparent, rgba(201,165,115,0.2), transparent)" }} aria-hidden="true" />
+      {/* Gold decorative curves */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1440 500" preserveAspectRatio="xMidYMid slice">
+          <path d="M-100,400 C300,280 700,440 1100,320 C1300,260 1400,340 1600,300" fill="none" stroke="rgba(184,137,59,0.12)" strokeWidth="1" />
+          <path d="M-100,440 C300,320 700,480 1100,360 C1300,300 1400,380 1600,340" fill="none" stroke="rgba(184,137,59,0.07)" strokeWidth="1" />
+        </svg>
+        {/* Corner marks */}
+        <div className="absolute top-12 left-12 w-12 h-12 border-t border-l border-gold/25" />
+        <div className="absolute bottom-12 right-12 w-12 h-12 border-b border-r border-gold/25" />
+      </div>
 
-      <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          className="relative border border-brass/20 px-6 sm:px-14 py-14 sm:py-16 text-center"
+      <div className="relative z-10 max-w-3xl mx-auto px-5 sm:px-8 text-center">
+        <motion.p
+          initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+          className="font-mono text-[10px] tracking-[0.35em] text-gold/70 uppercase mb-6"
         >
-          <div className="absolute -top-px -left-px w-10 h-10 border-t border-l border-brass/50" aria-hidden="true" />
-          <div className="absolute -top-px -right-px w-10 h-10 border-t border-r border-brass/50" aria-hidden="true" />
-          <div className="absolute -bottom-px -left-px w-10 h-10 border-b border-l border-brass/50" aria-hidden="true" />
-          <div className="absolute -bottom-px -right-px w-10 h-10 border-b border-r border-brass/50" aria-hidden="true" />
-
-          <span className="folio-mark text-[11px] text-brass/50 block mb-5">fls. 08</span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-parchment mb-6 font-serif leading-[1.05]">
-            Pronto para <span className="text-brass-gradient font-medium">Proteger</span> Seu Negócio?
-          </h2>
-          <p className="text-lg text-parchment-muted mb-10 max-w-2xl mx-auto">
-            Agende sua consulta jurídica hoje mesmo e descubra como nossa advocacia pode fazer a
-            diferença em sua empresa.
-          </p>
-          <motion.a
-            href="https://wa.me/5511912252450"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center gap-3 px-10 py-4 bg-brass text-ink font-medium tracking-wider hover:bg-brass-light transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brass focus-visible:outline-offset-2 rounded-sm relative overflow-hidden"
-            aria-label="Fale conosco pelo WhatsApp"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-            <span className="relative z-10">FALE CONOSCO NO WHATSAPP</span>
-            <ArrowRight className="w-4 h-4 relative z-10 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-          </motion.a>
-        </motion.div>
+          Vamos conversar
+        </motion.p>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="font-serif text-4xl sm:text-5xl lg:text-[52px] font-light text-white leading-[1.1] mb-7"
+        >
+          Pronto para proteger e <em className="text-gold-gradient not-italic">fortalecer</em> seu negócio?
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+          className="text-white/60 text-[17px] leading-relaxed mb-10 max-w-xl mx-auto"
+        >
+          Agende uma conversa com a nossa equipe e descubra como podemos apoiar suas decisões com segurança jurídica e estratégia.
+        </motion.p>
+        <motion.a
+          initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.28 }}
+          href="https://wa.me/5511912252450"
+          target="_blank" rel="noopener noreferrer"
+          className="group inline-flex items-center gap-3 px-10 py-4 bg-gold text-white text-[11px] tracking-[0.16em] uppercase font-medium hover:bg-gold-light transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold-light focus-visible:outline-offset-4"
+        >
+          Agendar Consulta
+          <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+        </motion.a>
       </div>
     </section>
   );

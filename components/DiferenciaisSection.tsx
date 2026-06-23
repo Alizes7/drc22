@@ -2,76 +2,77 @@
 
 import { motion } from "framer-motion";
 import { Clock, Target, MessageCircle, Award } from "lucide-react";
-import GoldenBackground from "@/components/GoldenBackground";
 
-const diferenciais = [
-  { icon: Clock, artigo: "Art. 1º", title: "Agilidade", description: "Respostas rápidas e decisões assertivas para acompanhar a velocidade dos negócios." },
-  { icon: Target, artigo: "Art. 2º", title: "Foco em Resultados", description: "Estratégias jurídicas alinhadas aos objetivos de negócio de cada cliente." },
-  { icon: MessageCircle, artigo: "Art. 3º", title: "Comunicação Clara", description: "Relatórios e pareceres em linguagem acessível, sem perder a rigorosidade técnica." },
-  { icon: Award, artigo: "Art. 4º", title: "Excelência Técnica", description: "Equipe altamente qualificada com formação contínua e acompanhamento do cenário jurídico." },
+const items = [
+  { n: "01", icon: Award,         title: "Excelência Técnica",          desc: "Formação rigorosa e atualização contínua para soluções precisas nas áreas mais complexas do direito." },
+  { n: "02", icon: Target,        title: "Foco em Resultados",          desc: "Estratégias jurídicas desenhadas com olhar de negócio, sempre alinhadas ao que cada cliente precisa alcançar." },
+  { n: "03", icon: MessageCircle, title: "Atendimento Personalizado",   desc: "Comunicação transparente, relatórios claros e acesso direto aos responsáveis pelo seu caso." },
+  { n: "04", icon: Clock,         title: "Relacionamento de Longo Prazo", desc: "Parcerias sólidas construídas ao longo do tempo, baseadas em confiança, ética e entrega consistente." },
 ];
+
+const vUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-60px" },
+  transition: { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] },
+});
 
 export default function DiferenciaisSection() {
   return (
-    <section id="diferenciais" className="relative py-24 md:py-32 overflow-hidden">
-      <GoldenBackground variant="intense" showOrbs={true} showLines={true} />
+    <section id="diferenciais" className="relative py-24 md:py-32 overflow-hidden" style={{ backgroundColor: "#F1EBE0" }}>
+      {/* Wave top */}
+      <div className="absolute top-0 left-0 right-0 pointer-events-none overflow-hidden" aria-hidden="true">
+        <svg viewBox="0 0 1440 80" className="w-full" preserveAspectRatio="none">
+          <path d="M0,60 C480,0 960,80 1440,20 L1440,0 L0,0 Z" fill="white" />
+        </svg>
+        <svg viewBox="0 0 1440 80" className="absolute top-0 w-full" preserveAspectRatio="none">
+          <path d="M0,60 C480,0 960,80 1440,20" fill="none" stroke="rgba(184,137,59,0.15)" strokeWidth="1" />
+        </svg>
+      </div>
 
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] max-w-[600px] h-px z-10" style={{ background: "linear-gradient(90deg, transparent, rgba(201,165,115,0.2), transparent)" }} aria-hidden="true" />
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[60%] max-w-[600px] h-px z-10" style={{ background: "linear-gradient(90deg, transparent, rgba(201,165,115,0.2), transparent)" }} aria-hidden="true" />
+      {/* Wave bottom */}
+      <div className="absolute bottom-0 left-0 right-0 pointer-events-none overflow-hidden" aria-hidden="true">
+        <svg viewBox="0 0 1440 80" className="w-full" preserveAspectRatio="none">
+          <path d="M0,20 C480,80 960,0 1440,60 L1440,80 L0,80 Z" fill="white" />
+        </svg>
+        <svg viewBox="0 0 1440 80" className="absolute bottom-0 w-full" preserveAspectRatio="none">
+          <path d="M0,20 C480,80 960,0 1440,60" fill="none" stroke="rgba(184,137,59,0.15)" strokeWidth="1" />
+        </svg>
+      </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <div className="flex items-center justify-center gap-3 mb-5">
-            <span className="folio-mark text-[11px] text-brass/50">fls. 04</span>
-            <span className="h-px w-8 bg-brass/30" aria-hidden="true" />
-            <span className="text-brass text-xs tracking-[0.32em] uppercase">Por Que Nos Escolher</span>
-          </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-parchment mb-3 font-serif leading-[1.05]">
-            Nossos <span className="text-brass-gradient font-medium">Diferenciais</span>
-          </h2>
-          <p className="text-parchment-faint text-sm tracking-wide max-w-xl mx-auto">
-            Quatro princípios que orientam cada caso conduzido pela banca.
-          </p>
-        </motion.div>
+      {/* BG decorative lines */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMid slice">
+          <path d="M0,300 C360,200 720,400 1080,280 C1260,220 1380,310 1440,290" fill="none" stroke="rgba(184,137,59,0.10)" strokeWidth="1" />
+        </svg>
+      </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-hairline border border-hairline">
-          {diferenciais.map((item, index) => (
+      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+        <div className="text-center mb-16">
+          <motion.p {...vUp(0)} className="font-mono text-[10px] tracking-[0.32em] text-gold uppercase mb-5">
+            Por que escolher a DRC
+          </motion.p>
+          <motion.h2 {...vUp(0.1)} className="font-serif text-4xl sm:text-5xl lg:text-[52px] font-light text-ink leading-[1.08]">
+            O que torna a DRC <em className="text-gold-gradient not-italic">referência.</em>
+          </motion.h2>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+          {items.map((item, i) => (
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative bg-ink-2"
+              key={item.title}
+              {...vUp(i * 0.1)}
+              className="group"
             >
-              <div className="relative h-full p-8 overflow-hidden transition-colors duration-500 hover:bg-ink-3">
-                <div className="absolute inset-0 bg-gradient-to-br from-brass/[0.06] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="absolute top-0 left-0 w-0 h-px bg-gradient-to-r from-brass to-brass-light group-hover:w-full transition-all duration-500" />
-
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-6">
-                    <span className="folio-mark text-xs text-brass/50 tracking-wider">{item.artigo}</span>
-                    <item.icon
-                      className="w-5 h-5 text-parchment-faint group-hover:text-brass transition-colors duration-500"
-                      aria-hidden="true"
-                      strokeWidth={1.5}
-                    />
-                  </div>
-                  <h3 className="text-xl font-medium text-parchment mb-3 font-serif group-hover:text-brass transition-colors duration-500">
-                    {item.title}
-                  </h3>
-                  <div className="w-8 h-px bg-hairline-strong group-hover:w-12 group-hover:bg-brass transition-all duration-500 mb-4" />
-                  <p className="text-sm text-parchment-faint group-hover:text-parchment-muted transition-colors duration-500 leading-relaxed">
-                    {item.description}
-                  </p>
+              <div className="flex items-center gap-4 mb-6">
+                <span className="font-mono text-3xl font-light text-gold/30 leading-none select-none">{item.n}</span>
+                <div className="h-px flex-1 bg-gold/20" />
+                <div className="w-9 h-9 flex items-center justify-center border border-gold/25 group-hover:border-gold/60 group-hover:bg-gold/5 transition-all duration-300">
+                  <item.icon className="w-4 h-4 text-gold" strokeWidth={1.5} />
                 </div>
               </div>
+              <h3 className="font-serif text-xl font-medium text-ink mb-3 group-hover:text-gold transition-colors duration-300">{item.title}</h3>
+              <p className="text-sm text-muted leading-relaxed">{item.desc}</p>
             </motion.div>
           ))}
         </div>
