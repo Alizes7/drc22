@@ -9,85 +9,60 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        brass: {
-          light: "#E5C788",
-          DEFAULT: "#C9A573",
-          deep: "#8B6F3F",
+        white: "#FFFFFF",
+        ivory: {
+          DEFAULT: "#F8F4EC",
+          2: "#F1EBE0",
+        },
+        beige: {
+          DEFAULT: "#EFE6D8",
+          2: "#E4D8C8",
+        },
+        gold: {
+          DEFAULT: "#B8893B",
+          light: "#D4A84B",
+          deep: "#8E682B",
+          pale: "#F0E4CC",
+          border: "rgba(184,137,59,0.22)",
+          bg: "rgba(184,137,59,0.06)",
         },
         ink: {
-          DEFAULT: "#08080A",
-          1: "#0D0D0F",
-          2: "#111113",
-          3: "#161618",
+          DEFAULT: "#1A1714",
+          2: "#2E2A25",
         },
-        hairline: {
-          DEFAULT: "#232024",
-          strong: "#2E2A2D",
-        },
-        parchment: {
-          DEFAULT: "#F3EFE6",
-          2: "#DCD5C6",
-          muted: "#9B9388",
-          faint: "#5C5750",
-        },
-        // legacy aliases kept so any untouched class names still resolve
-        gold: {
-          50: "#FBF6EC",
-          100: "#F0E2C4",
-          200: "#E5C788",
-          300: "#D9B87E",
-          400: "#CEB078",
-          500: "#C9A573",
-          600: "#B79363",
-          700: "#9C7F54",
-          800: "#8B6F3F",
-          900: "#6E5731",
-        },
-        black: {
-          900: "#08080A",
-          800: "#0D0D0F",
-          700: "#111113",
-          600: "#161618",
-          500: "#1B1B1E",
-          400: "#212022",
-          300: "#232024",
-          200: "#2E2A2D",
-          100: "#3A3537",
-        },
-        cream: {
-          100: "#F3EFE6",
-          200: "#DCD5C6",
-          300: "#C7BFAE",
-          400: "#B0A799",
-          500: "#9B9388",
-          600: "#7A7268",
-          700: "#5C5750",
-          800: "#3A3732",
-        },
+        muted: "#6C665D",
+        faint: "#9A9087",
       },
       fontFamily: {
         serif: ["'Cormorant Garamond'", "serif"],
-        sans: ["'Montserrat'", "sans-serif"],
-        mono: ["'IBM Plex Mono'", "ui-monospace", "monospace"],
+        sans:  ["'Montserrat'", "sans-serif"],
+        mono:  ["'IBM Plex Mono'", "monospace"],
       },
       animation: {
-        shimmer: "shimmer 4s linear infinite",
-        float: "float 6s ease-in-out infinite",
-        "pulse-gold": "pulse-gold 2s ease-in-out infinite",
+        "float-slow": "float-slow 8s ease-in-out infinite",
+        "fade-up":    "fade-up 0.6s ease forwards",
+        "draw-line":  "draw-line 2s ease forwards",
       },
       keyframes: {
-        shimmer: {
-          "0%": { backgroundPosition: "-200% center" },
-          "100%": { backgroundPosition: "200% center" },
+        "float-slow": {
+          "0%, 100%": { transform: "translateY(0px) rotate(0deg)" },
+          "50%":      { transform: "translateY(-12px) rotate(1deg)" },
         },
-        float: {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-10px)" },
+        "fade-up": {
+          from: { opacity: "0", transform: "translateY(22px)" },
+          to:   { opacity: "1", transform: "translateY(0)" },
         },
-        "pulse-gold": {
-          "0%, 100%": { boxShadow: "0 0 0 0 rgba(201,165,115,0.2)" },
-          "50%": { boxShadow: "0 0 0 15px rgba(201,165,115,0)" },
+        "draw-line": {
+          from: { strokeDashoffset: "600" },
+          to:   { strokeDashoffset: "0" },
         },
+      },
+      boxShadow: {
+        "gold-sm":  "0 1px 8px rgba(184,137,59,0.10), 0 0 0 1px rgba(184,137,59,0.08)",
+        "gold-md":  "0 4px 24px rgba(184,137,59,0.14), 0 1px 4px rgba(184,137,59,0.08)",
+        "gold-lg":  "0 12px 48px rgba(184,137,59,0.16), 0 2px 8px rgba(184,137,59,0.10)",
+        "card":     "0 2px 20px rgba(26,23,20,0.06), 0 1px 4px rgba(26,23,20,0.04)",
+        "card-hover": "0 8px 40px rgba(26,23,20,0.10), 0 2px 8px rgba(26,23,20,0.06)",
       },
     },
   },
